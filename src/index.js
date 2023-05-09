@@ -41,16 +41,25 @@ const markupOfPictures = (data) => {
     .join("");
   refs.gallery.insertAdjacentHTML("afterbegin", markup);
 };
-
+let pageCounter = 1;
+let previousSearch;
 const onInput = (e) => {
   e.preventDefault();
 
   const { searchQuery } = e.target.elements;
   const queryParam = searchQuery.value;
-  API.getPictures(queryParam).then(({ data }) => {
+
+  if (previousSearch === queryParam) {
+    pageCounter += 1;
+  }
+  if (previousSearch !== queryParam) {
+    pageCounter = 1;
+  }
+  API.getPictures(queryParam, pageCounter).then(({ data }) => {
     console.log(data.hits);
     markupOfPictures(data);
   });
+  previousSearch = searchQuery.value;
   searchQuery.value = "";
 };
 
