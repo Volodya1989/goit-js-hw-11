@@ -1,5 +1,6 @@
 import API from "./apiCalls.js";
 import Notiflix from "notiflix";
+
 //elements in HTML document
 refs = {
   form: document.querySelector("#search-form"),
@@ -15,8 +16,7 @@ let queryParam;
 let totalNumOfPictures;
 let message;
 
-
-//markuap method for the card
+//markup method for the card
 const markupOfPictures = (data) => {
   const { hits } = data;
   const markup = hits
@@ -82,6 +82,11 @@ async function gettingPhoto(queryParam, pageCounter) {
   }
 }
 
+//function to check search input field on empty string
+const onEmptyString = (message) => {
+  refs.buttonLoadMore.classList.remove("visible");
+  return notifyFailedMessage(message);
+};
 //function that is called on submit
 const onSubmit = (e) => {
   e.preventDefault();
@@ -91,10 +96,14 @@ const onSubmit = (e) => {
   const { searchQuery } = e.target.elements;
   queryParam = searchQuery.value.trim();
 
+  //checking search input field on empty string
+  if (!queryParam.length) {
+    message = "Please type in some search key word";
+    return onEmptyString(message);
+  }
   gettingPhoto(queryParam, pageCounter);
 
   searchQuery.value = null;
-  // refs.buttonSubmit.disabled = true;
 
   refs.form.reset();
 
@@ -111,13 +120,5 @@ const onLoadMore = () => {
   gettingPhoto(queryParam, pageCounter);
 };
 
-//function makes submit button enabled, if user have provided some input into the search images field
-const onInput = (e) => {
-  if (e.target.value) {
-    refs.buttonSubmit.disabled = false;
-  }
-};
-
-// refs.input.addEventListener("input", onInput);
 refs.form.addEventListener("submit", onSubmit);
 refs.buttonLoadMore.addEventListener("click", onLoadMore);
