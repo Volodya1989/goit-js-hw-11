@@ -1,1 +1,28 @@
-@import '~node_modules/modern-normalize/modern-normalize.css';
+@import "~node_modules/modern-normalize/modern-normalize.css";
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: auto;
+}
+
+button.load-more {
+  display: none;
+}
+
+.load-more.visible {
+  display: block;
+}
+
+.info {
+  display: flex;
+  gap: 20px;
+}
+.info-item {
+  display: block;
+  font-weight: normal;
+  font-size: 12px;
+  text-align: center;
+}
