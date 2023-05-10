@@ -89,7 +89,6 @@ const onEmptyString = (message) => {
 //function that is called on submit
 const onSubmit = (e) => {
   e.preventDefault();
-  refs.gallery.innerHTML = "";
 
   pageCounter = 1;
   const { searchQuery } = e.target.elements;
@@ -100,6 +99,8 @@ const onSubmit = (e) => {
     message = "Please type in some search key word";
     return onEmptyString(message);
   }
+  refs.gallery.innerHTML = "";
+
   gettingPhoto(queryParam, pageCounter);
 
   searchQuery.value = null;
