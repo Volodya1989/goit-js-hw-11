@@ -12,9 +12,10 @@
   display: flex;
   justify-content: center;
   gap: 20px;
-  border: black solid 1px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;
+//   border: black solid 1px;
   border-top: none;
-  border-radius: 1px;
+  border-radius: 5px;
 }
 
 img {
