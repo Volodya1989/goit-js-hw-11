@@ -94,7 +94,7 @@ const onSubmit = (e) => {
   gettingPhoto(queryParam, pageCounter);
 
   searchQuery.value = null;
-  refs.buttonSubmit.disabled = true;
+  // refs.buttonSubmit.disabled = true;
 
   refs.form.reset();
 
@@ -118,6 +118,6 @@ const onInput = (e) => {
   }
 };
 
-refs.input.addEventListener("input", onInput);
+// refs.input.addEventListener("input", onInput);
 refs.form.addEventListener("submit", onSubmit);
 refs.buttonLoadMore.addEventListener("click", onLoadMore);
