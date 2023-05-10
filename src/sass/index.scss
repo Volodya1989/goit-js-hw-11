@@ -9,3 +9,10 @@
   margin: auto;
 }
 
+.load-more {
+  display: none;
+}
+
+.load-more.visible {
+  display: block;
+}
