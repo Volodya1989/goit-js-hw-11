@@ -2,7 +2,7 @@ import API from "./apiCalls.js";
 import Notiflix from "notiflix";
 
 //elements in HTML document
-refs = {
+const refs = {
   form: document.querySelector("#search-form"),
   gallery: document.querySelector(".gallery"),
   input: document.querySelector("input[type='text']"),
