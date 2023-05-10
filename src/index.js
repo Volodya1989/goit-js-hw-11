@@ -4,7 +4,9 @@ import API from "./apiCalls.js";
 refs = {
   inputEl: document.querySelector("#search-form"),
   gallery: document.querySelector(".gallery"),
+  buttonLoadMore: document.querySelector("button[type='button']"),
 };
+
 const markupOfPictures = (data) => {
   const { hits } = data;
   const markup = hits
@@ -39,28 +41,35 @@ const markupOfPictures = (data) => {
       }
     )
     .join("");
-  refs.gallery.insertAdjacentHTML("afterbegin", markup);
+  refs.gallery.insertAdjacentHTML("beforeend", markup);
 };
-let pageCounter = 1;
-let previousSearch;
+let pageCounter = null;
+let queryParam;
+async function gettingPhoto(queryParam, pageCounter) {
+  const response = await API.getPictures(queryParam, pageCounter);
+  const data = await response.data;
+  markupOfPictures(data);
+}
 const onInput = (e) => {
   e.preventDefault();
+  refs.gallery.innerHTML = "";
+  refs.buttonLoadMore.disabled = false;
 
+  pageCounter = 1;
   const { searchQuery } = e.target.elements;
-  const queryParam = searchQuery.value;
+  queryParam = searchQuery.value;
+  gettingPhoto(queryParam, pageCounter);
 
-  if (previousSearch === queryParam) {
-    pageCounter += 1;
+  if (!pageCounter) {
+    refs.buttonLoadMore.disabled = true;
   }
-  if (previousSearch !== queryParam) {
-    pageCounter = 1;
-  }
-  API.getPictures(queryParam, pageCounter).then(({ data }) => {
-    console.log(data.hits);
-    markupOfPictures(data);
-  });
-  previousSearch = searchQuery.value;
   searchQuery.value = "";
 };
 
+const onLoadMore = () => {
+  pageCounter += 1;
+  gettingPhoto(queryParam, pageCounter);
+};
+
 refs.inputEl.addEventListener("submit", onInput);
+refs.buttonLoadMore.addEventListener("click", onLoadMore);
