@@ -9,10 +9,12 @@
   margin: auto;
 }
 
-.load-more {
+button.load-more {
   display: none;
 }
 
 .load-more.visible {
   display: block;
 }
+
+

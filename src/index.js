@@ -15,8 +15,6 @@ let queryParam;
 let totalNumOfPictures;
 let message;
 
-//load btn is not visible for the user on the beginning
-refs.buttonLoadMore.style.display = "none";
 
 //markuap method for the card
 const markupOfPictures = (data) => {
@@ -69,7 +67,8 @@ async function gettingPhoto(queryParam, pageCounter) {
     totalNumOfPictures = data.total;
 
     if (!totalNumOfPictures || !data.hits.length) {
-      refs.buttonLoadMore.style.display = "none";
+      refs.buttonLoadMore.classList.remove("visible");
+
       message =
         "Sorry, there are no images matching your search query. Please try again.";
       notifyFailedMessage(message);
@@ -101,7 +100,7 @@ const onSubmit = (e) => {
 
   setTimeout(() => {
     if (totalNumOfPictures) {
-      refs.buttonLoadMore.style.display = null;
+      refs.buttonLoadMore.classList.add("visible");
     }
   }, 500);
 };
