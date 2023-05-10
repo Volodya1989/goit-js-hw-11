@@ -8,21 +8,29 @@
   margin: auto;
 }
 
-button.load-more {
-  display: none;
-}
-
-.load-more.visible {
-  display: block;
-}
-
 .info {
   display: flex;
+  justify-content: center;
   gap: 20px;
+  border: black solid 1px;
+  border-top: none;
+  border-radius: 1px;
 }
-.info-item {
+
+img {
   display: block;
-  font-weight: normal;
-  font-size: 12px;
+  margin: auto;
+  height: 200px;
+}
+.info-item b {
+  display: block;
+  font-size: 13px;
   text-align: center;
+}
+
+.info-item b span {
+  font-weight: normal;
+  text-align: center;
+
+  margin-top: 5px;
 }

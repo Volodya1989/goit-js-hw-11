@@ -34,16 +34,16 @@ const markupOfPictures = (data) => {
   <img src=${webformatURL} alt="${tags}" loading="lazy" width="300" />
   <div class="info">
     <p class="info-item">
-      <b>Likes <br /> ${likes}</b>
+      <b>Likes <br /> <span>${likes}</span></b>
     </p>
     <p class="info-item">
-      <b>Views <br /> ${views}</b>
+      <b>Views <br /> <span>${views}</span></b>
     </p>
     <p class="info-item">
-      <b>Comments <br /> ${comments}</b>
+      <b>Comments <br /> <span>${comments}</span></b>
     </p>
     <p class="info-item">
-      <b>Downloads <br /> ${downloads}</b>
+      <b>Downloads <br /> <span>${downloads}</span></b>
     </p>
   </div>
 </div>`;
