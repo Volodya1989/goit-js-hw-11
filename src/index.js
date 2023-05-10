@@ -6,7 +6,6 @@ const refs = {
   form: document.querySelector("#search-form"),
   gallery: document.querySelector(".gallery"),
   input: document.querySelector("input[type='text']"),
-  buttonSubmit: document.querySelector("button[type='submit']"),
   buttonLoadMore: document.querySelector("button[type='button']"),
 };
 
