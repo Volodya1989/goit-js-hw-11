@@ -32,6 +32,7 @@ const markupOfPictures = (data) => {
       }) => {
         return `<div data-id=${id} class="photo-card">
   <img src=${webformatURL} alt="${tags}" loading="lazy" width="300" />
+       
   <div class="info">
     <p class="info-item">
       <b>Likes <br /> <span>${likes}</span></b>
