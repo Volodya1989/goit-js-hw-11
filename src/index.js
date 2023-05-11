@@ -13,6 +13,7 @@ const refs = {
 //some of the variable that is used to complete checks and to improve user's experience
 let pageCounter = null;
 let totalHits = 0;
+let totalPages = [];
 let queryParam;
 let message;
 
@@ -82,18 +83,24 @@ async function gettingPhoto(queryParam, pageCounter) {
     const response = await API.getPictures(queryParam, pageCounter);
     const data = await response.data;
     totalHits = Number(data.totalHits);
+    totalPages = Math.ceil(Number(data.totalHits) / 40);
 
     if (!totalHits || !data.hits.length) {
       refs.buttonLoadMore.classList.remove("visible");
-
       message =
         "Sorry, there are no images matching your search query. Please try again.";
       return notifyFailedMessage(message);
     }
+
     if (pageCounter === 1) {
       Notiflix.Notify.success(`Hooray! We found ${totalHits} images in total.`);
     }
     markupOfPictures(data);
+    if (totalPages === pageCounter) {
+      refs.buttonLoadMore.classList.remove("visible");
+      message = "We're sorry, but you've reached the end of search results.";
+      notifyFailedMessage(message);
+    }
   } catch (e) {
     console.log(e.message);
     message = "We're sorry, but you've reached the end of search results.";
@@ -130,8 +137,10 @@ const onSubmit = (e) => {
   refs.form.reset();
 
   setTimeout(() => {
-    if (totalHits) {
+    if (totalPages !== pageCounter) {
       refs.buttonLoadMore.classList.add("visible");
+    } else {
+      refs.buttonLoadMore.classList.remove("visible");
     }
   }, 500);
 };
