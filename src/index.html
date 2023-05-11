@@ -15,14 +15,20 @@
     <!-- ❗️❗️❗️ Add partials like so for every page -->
     <!-- <include src="./partials/form.html"></include> -->
     <form class="search-form" id="search-form">
-      <input
-        type="text"
-        class="input-search"
-        name="searchQuery"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-      <button type="submit" class="btn-search fa fa-search"></button>
+      <div class="form-container">
+        <input
+          type="text"
+          class="input-search"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <button type="submit" class="btn-search">
+          <svg class="svg-icon">
+            <use href="./images/search-icon.svg#search-icon"></use>
+          </svg>
+        </button>
+      </div>
     </form>
 
     <div class="gallery">

@@ -32,26 +32,35 @@ form .input-search {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
-  float: left;
-  width: 250px;
-  background: #f1f1f1;
+  width: 300px;
+  border-radius: 10px;
+  outline-width: 0.5px;
+  outline-color: #0bc521;
+}
+.form-container {
+  position: relative;
 }
 
 form .btn-search {
-  float: left;
+  position: absolute;
   width: 50px;
   padding: 10px;
-  background: #2196f3;
-  color: white;
   font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
+  border: none;
+  transform: scale(0.8);
+  border-radius: 5px;
+  right: 4px;
+  background: white;
   cursor: pointer;
 }
 
-form .btn-search:hover,
 button.load-more:hover {
   background: #0b7dda;
+}
+
+form .btn-search:hover {
+  transition: transform 0.4s;
+  transform: scale(0.9);
 }
 
 form ::after {
@@ -67,11 +76,19 @@ form ::after {
 
 .photo-card:hover {
   transition: transform 0.4s;
-  transform: scale(1.06);
+  transform: scale(1.02);
 }
 
 .picture {
   object-fit: cover;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.btn-search .svg-icon {
+  width: 26px;
+  height: 18px;
+}
+.btn-search .svg-icon:hover {
+  fill: #0bc521;
 }
