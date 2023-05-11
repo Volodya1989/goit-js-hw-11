@@ -79,9 +79,10 @@ const markupOfPictures = (data) => {
     )
     .join("");
   refs.gallery.insertAdjacentHTML("beforeend", markup);
-
+  if (pageCounter > 1) {
+    pageSmoothScrolling();
+  }
   onModalWindow();
-  pageSmoothScrolling();
 };
 
 //general method for notification with failed methods
