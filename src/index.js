@@ -1,9 +1,6 @@
 import API from "./apiCalls.js";
 import Notiflix from "notiflix";
-// Described in documentation
-import SimpleLightbox from "simplelightbox";
-// Additional styles import
-import "simplelightbox/dist/simple-lightbox.min.css";
+import { _gallery } from "./simpleLightbox.js";
 
 //elements in HTML document
 const refs = {
@@ -14,21 +11,10 @@ const refs = {
 };
 
 //some of the variable that is used to complete checks and to improve user's experience
-
 let pageCounter = null;
 let totalHits = 0;
 let queryParam;
 let message;
-
-//method to implement SimpleLightbox library
-const onModalWindow = () => {
-  const gallery = new SimpleLightbox(".photo-card a", {
-    captionPosition: "bottom",
-    captionsData: "alt",
-    captionDelay: 250,
-  });
-  gallery.refresh();
-};
 
 const pageSmoothScrolling = () => {
   const { height: cardHeight } = document
@@ -82,8 +68,7 @@ const markupOfPictures = (data) => {
   if (pageCounter > 1) {
     pageSmoothScrolling();
   }
-
-  onModalWindow();
+  _gallery.refresh();
 };
 
 //general method for notification with failed methods
