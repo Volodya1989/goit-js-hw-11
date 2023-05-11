@@ -1,5 +1,9 @@
 import API from "./apiCalls.js";
 import Notiflix from "notiflix";
+// Described in documentation
+import SimpleLightbox from "simplelightbox";
+// Additional styles import
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 //elements in HTML document
 const refs = {
@@ -32,8 +36,9 @@ const markupOfPictures = (data) => {
         downloads,
       }) => {
         return `<div data-id=${id} class="photo-card">
+        <a class="gallery__link" href="${largeImageURL}">
   <img src=${webformatURL} alt="${tags}" loading="lazy" width="300" />
-       
+       </a>
   <div class="info">
     <p class="info-item">
       <b>Likes <br /> <span>${likes}</span></b>
@@ -53,6 +58,11 @@ const markupOfPictures = (data) => {
     )
     .join("");
   refs.gallery.insertAdjacentHTML("beforeend", markup);
+  new SimpleLightbox(".photo-card a", {
+    captionPosition: "bottom",
+    captionsData: "alt",
+    captionDelay: 250,
+  });
 };
 
 //general method for notification with failed methods
