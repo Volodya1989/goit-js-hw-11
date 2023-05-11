@@ -1,10 +1,13 @@
+// body{
+//   background: radial-gradient(circle, #1900ff 0%, #ddee22 100%);;
+// }
 .search-form {
   display: flex;
   justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
   margin-bottom: 20px;
-  background-color: rgb(37, 226, 240);
+  background: radial-gradient(circle, #00ff1e 0%, #fbf807 100%);
   position: fixed;
   z-index: 1;
   width: 100%;
@@ -20,7 +23,7 @@ button.load-more {
   color: white;
   font-size: 17px;
   border: 1px solid grey;
-  border-radius: 5px;
+  border-radius: 10px;
   margin-top: 40px;
   margin-bottom: 40px;
 }
@@ -55,4 +58,20 @@ form ::after {
   content: "";
   clear: both;
   display: table;
+}
+
+.photo-card {
+  background: radial-gradient(circle, #00ff1e 0%, #fbf807 100%);
+  border-radius: 10px;
+}
+
+.photo-card:hover {
+  transition: transform 0.4s;
+  transform: scale(1.06);
+}
+
+.picture {
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }

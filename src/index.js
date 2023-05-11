@@ -30,6 +30,17 @@ const onModalWindow = () => {
   });
   gallery.refresh();
 };
+
+const pageSmoothScrolling = () => {
+  const { height: cardHeight } = document
+    .querySelector(".gallery")
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: "smooth",
+  });
+};
 //markup method for the card
 const markupOfPictures = (data) => {
   const { hits } = data;
@@ -47,7 +58,7 @@ const markupOfPictures = (data) => {
       }) => {
         return `<div data-id=${id} class="photo-card">
         <a class="gallery__link" href="${largeImageURL}">
-  <img src=${webformatURL} alt="${tags}" loading="lazy" width="300" />
+  <img class="picture" src=${webformatURL} alt="${tags}" loading="lazy" width="350" />
        </a>
   <div class="info">
     <p class="info-item">
@@ -70,6 +81,8 @@ const markupOfPictures = (data) => {
   refs.gallery.insertAdjacentHTML("beforeend", markup);
 
   onModalWindow();
+  pageSmoothScrolling();
+  console.log(pageSmoothScrolling());
 };
 
 //general method for notification with failed methods
