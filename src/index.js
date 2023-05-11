@@ -4,6 +4,27 @@ import Notiflix from "notiflix";
 import SimpleLightbox from "simplelightbox";
 // Additional styles import
 import "simplelightbox/dist/simple-lightbox.min.css";
+import { Spinner } from "spin.js";
+var opts = {
+  lines: 13, // The number of lines to draw
+  length: 38, // The length of each line
+  width: 17, // The line thickness
+  radius: 45, // The radius of the inner circle
+  scale: 1, // Scales overall size of the spinner
+  corners: 1, // Corner roundness (0..1)
+  speed: 1, // Rounds per second
+  rotate: 0, // The rotation offset
+  animation: "spinner-line-fade-quick", // The CSS animation name for the lines
+  direction: 1, // 1: clockwise, -1: counterclockwise
+  color: "#ffffff", // CSS color or array of colors
+  fadeColor: "transparent", // CSS color or array of colors
+  top: "50%", // Top position relative to parent
+  left: "50%", // Left position relative to parent
+  shadow: "0 0 1px transparent", // Box-shadow for the lines
+  zIndex: 2000000000, // The z-index (defaults to 2e9)
+  className: "spinner", // The CSS class to assign to the spinner
+  position: "absolute", // Element positioning
+};
 
 //elements in HTML document
 const refs = {
@@ -13,12 +34,14 @@ const refs = {
   buttonLoadMore: document.querySelector("button[type='button']"),
 };
 
+const target = refs.gallery;
+const spinner = new Spinner(opts).spin(target);
+
 //some of the variable that is used to complete checks and to improve user's experience
 
-let totalHits = 0;
 let pageCounter = null;
+let totalHits = 0;
 let queryParam;
-let totalNumOfPictures;
 let message;
 
 //method to implement SimpleLightbox library
@@ -41,6 +64,7 @@ const pageSmoothScrolling = () => {
     behavior: "smooth",
   });
 };
+
 //markup method for the card
 const markupOfPictures = (data) => {
   const { hits } = data;
@@ -82,7 +106,6 @@ const markupOfPictures = (data) => {
 
   onModalWindow();
   pageSmoothScrolling();
-  console.log(pageSmoothScrolling());
 };
 
 //general method for notification with failed methods
@@ -95,18 +118,19 @@ async function gettingPhoto(queryParam, pageCounter) {
   try {
     const response = await API.getPictures(queryParam, pageCounter);
     const data = await response.data;
-    totalNumOfPictures = data.total;
+    totalHits = Number(data.totalHits);
 
-    if (!totalNumOfPictures || !data.hits.length) {
+    if (!totalHits || !data.hits.length) {
       refs.buttonLoadMore.classList.remove("visible");
 
       message =
         "Sorry, there are no images matching your search query. Please try again.";
       return notifyFailedMessage(message);
     }
-    totalHits += Number(data.hits.length);
-
-    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    if (pageCounter === 1) {
+      Notiflix.Notify.success(`Hooray! We found ${totalHits} images in total.`);
+    }
+    console.log(spinner);
     markupOfPictures(data);
   } catch (e) {
     console.log(e.message);
@@ -121,11 +145,10 @@ const onEmptyString = (message) => {
   refs.buttonLoadMore.classList.remove("visible");
   return notifyFailedMessage(message);
 };
+
 //function that is called on submit
 const onSubmit = (e) => {
   e.preventDefault();
-  totalHits = 0;
-
   pageCounter = 1;
   const { searchQuery } = e.target.elements;
   queryParam = searchQuery.value.trim();
@@ -140,17 +163,17 @@ const onSubmit = (e) => {
   gettingPhoto(queryParam, pageCounter);
 
   searchQuery.value = null;
-
+  totalHits = 0;
   refs.form.reset();
 
   setTimeout(() => {
-    if (totalNumOfPictures) {
+    if (totalHits) {
       refs.buttonLoadMore.classList.add("visible");
     }
   }, 500);
 };
 
-//function that is called when user would like to get more pictures displayed after initial getCall
+// function that is called when user would like to get more pictures displayed after initial getCall
 const onLoadMore = () => {
   pageCounter += 1;
   gettingPhoto(queryParam, pageCounter);
@@ -158,3 +181,17 @@ const onLoadMore = () => {
 
 refs.form.addEventListener("submit", onSubmit);
 refs.buttonLoadMore.addEventListener("click", onLoadMore);
+
+// const handleInfiniteScroll = () => {
+//   const endOfPage =
+//     window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+//   if (endOfPage) {
+//     if (totalHits > 520) {
+//       message = "We're sorry, but you've reached the end of search results.";
+//       return notifyFailedMessage(message);
+//     }
+//     gettingPhoto(queryParam, pageCounter);
+//   }
+// };
+
+// window.addEventListener("scroll", handleInfiniteScroll);
