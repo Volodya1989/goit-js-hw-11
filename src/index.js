@@ -82,6 +82,7 @@ const markupOfPictures = (data) => {
   if (pageCounter > 1) {
     pageSmoothScrolling();
   }
+
   onModalWindow();
 };
 
@@ -111,8 +112,9 @@ async function gettingPhoto(queryParam, pageCounter) {
   } catch (e) {
     console.log(e.message);
     message = "We're sorry, but you've reached the end of search results.";
+    refs.buttonLoadMore.classList.remove("visible");
+
     notifyFailedMessage(message);
-    refs.buttonLoadMore.disabled = true;
   }
 }
 
