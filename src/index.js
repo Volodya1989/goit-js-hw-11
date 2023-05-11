@@ -14,12 +14,22 @@ const refs = {
 };
 
 //some of the variable that is used to complete checks and to improve user's experience
+
+let totalHits = 0;
 let pageCounter = null;
 let queryParam;
 let totalNumOfPictures;
 let message;
-let totalHits = 0;
 
+//method to implement SimpleLightbox library
+const onModalWindow = () => {
+  const gallery = new SimpleLightbox(".photo-card a", {
+    captionPosition: "bottom",
+    captionsData: "alt",
+    captionDelay: 250,
+  });
+  gallery.refresh();
+};
 //markup method for the card
 const markupOfPictures = (data) => {
   const { hits } = data;
@@ -58,11 +68,8 @@ const markupOfPictures = (data) => {
     )
     .join("");
   refs.gallery.insertAdjacentHTML("beforeend", markup);
-  new SimpleLightbox(".photo-card a", {
-    captionPosition: "bottom",
-    captionsData: "alt",
-    captionDelay: 250,
-  });
+
+  onModalWindow();
 };
 
 //general method for notification with failed methods
