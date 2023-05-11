@@ -102,9 +102,10 @@ async function gettingPhoto(queryParam, pageCounter) {
 
       message =
         "Sorry, there are no images matching your search query. Please try again.";
-      notifyFailedMessage(message);
+      return notifyFailedMessage(message);
     }
     totalHits += Number(data.hits.length);
+
     Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     markupOfPictures(data);
   } catch (e) {
