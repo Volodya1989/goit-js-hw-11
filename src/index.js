@@ -14,6 +14,7 @@ let pageCounter = null;
 let queryParam;
 let totalNumOfPictures;
 let message;
+let totalHits = 0;
 
 //markup method for the card
 const markupOfPictures = (data) => {
@@ -73,6 +74,8 @@ async function gettingPhoto(queryParam, pageCounter) {
         "Sorry, there are no images matching your search query. Please try again.";
       notifyFailedMessage(message);
     }
+    totalHits += Number(data.hits.length);
+    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     markupOfPictures(data);
   } catch (e) {
     console.log(e.message);
@@ -90,6 +93,7 @@ const onEmptyString = (message) => {
 //function that is called on submit
 const onSubmit = (e) => {
   e.preventDefault();
+  totalHits = 0;
 
   pageCounter = 1;
   const { searchQuery } = e.target.elements;
