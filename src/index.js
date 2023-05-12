@@ -137,10 +137,10 @@ const onSubmit = (e) => {
   refs.form.reset();
 
   setTimeout(() => {
-    if (totalPages !== pageCounter) {
-      refs.buttonLoadMore.classList.add("visible");
-    } else {
+    if (totalPages === pageCounter || !totalPages) {
       refs.buttonLoadMore.classList.remove("visible");
+    } else {
+      refs.buttonLoadMore.classList.add("visible");
     }
   }, 500);
 };
@@ -153,17 +153,3 @@ const onLoadMore = () => {
 
 refs.form.addEventListener("submit", onSubmit);
 refs.buttonLoadMore.addEventListener("click", onLoadMore);
-
-// const handleInfiniteScroll = () => {
-//   const endOfPage =
-//     window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
-//   if (endOfPage) {
-//     if (totalHits > 520) {
-//       message = "We're sorry, but you've reached the end of search results.";
-//       return notifyFailedMessage(message);
-//     }
-//     gettingPhoto(queryParam, pageCounter);
-//   }
-// };
-
-// window.addEventListener("scroll", handleInfiniteScroll);
