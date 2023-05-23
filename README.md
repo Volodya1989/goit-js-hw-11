@@ -1,4 +1,4 @@
-# Workout-Tracker
+# Gallery-Search
 
 
 ![badmath](https://img.shields.io/badge/gallery-search)
