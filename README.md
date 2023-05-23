@@ -17,11 +17,11 @@
 
 1. Clone the repo.
 2. Run npm install command in your terminal/bash.
-3. Then run node server.js command in your terminal/bash.
+3. Then run npm start command in your terminal/bash.
 
 ## Usage
 
-This Workout Tracker Application provides opportunity to view create and track daily workouts. User is be able to log multiple exercises in a workout on a given day. Also, user is able to track the name, type, weight, sets, reps, and duration of exercise.
+Gallery Search application serves as a tool to help users find and enjoy high quality images on different themes and providing additional information on each picture.
 
 The following screenshot demonstrates the application functionality:
 
